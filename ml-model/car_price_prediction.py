@@ -24,6 +24,10 @@ y = df['price (eur)']
 # Combine numerical and one-hot encoded features
 X = pd.concat([X_num, X_features], axis=1)
 
+# Rename the columns for one-hot encoded features
+feature_names = enc.get_feature_names_out(input_features=['brand', 'fuel', 'gearbox'])
+X.columns = ['age', 'mileage (kms)'] + list(feature_names)
+
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 
