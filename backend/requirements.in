@@ -1,6 +1,10 @@
 # API Server
+
+# Fastening light Python Framework for API build
 fastapi == 0.103.1
 
+# Fast ASGI server implementation which helps in the interaction between your application and the backend
 uvicorn[standard] == 0.23.2
 
+# Data validation & parsing package, it enforces type hints at runtime & provides user friendly errors for invalid data
 pydantic == 2.3.0
