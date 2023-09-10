@@ -28,23 +28,9 @@ X = pd.concat([X_num, X_features], axis=1)
 feature_names = enc.get_feature_names_out(input_features=['brand', 'fuel', 'gearbox'])
 X.columns = ['age', 'mileage (kms)'] + list(feature_names)
 
-# Split the dataset into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
-
 # Initialize and train the random forest regressor model
 regr = RandomForestRegressor()
-regr.fit(X_train, y_train)
-
-# Make predictions on the test set
-y_pred = regr.predict(X_test)
-
-# Model evaluation - Mean Squared Error
-mse = mean_squared_error(y_test, y_pred, squared=False)
-print(f"Root Mean Squared Error: {mse:.2f}")
-
-# Model evaluation - Mean Absolute Error
-mae = mean_absolute_error(y_test, y_pred)
-print(f"Mean Absolute Error: {mae:.2f}")
+regr.fit(X, y)
 
 # Save the trained model to a file
-dump(regr, 'car_price_prediction_model.joblib')
+dump(regr, '../backend/ml_model/car_price_prediction_model.joblib')
