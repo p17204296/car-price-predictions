@@ -1,14 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
 from config import settings
+from backend.routes import car_routes
 
 app = FastAPI()
 
 
-@app.get("/")
-def read():
-    return {"Hello": "World"}
-
+# Include the car_routes router
+app.include_router(car_routes.router)
 
 if __name__ == "__main__":
     uvicorn.run(
