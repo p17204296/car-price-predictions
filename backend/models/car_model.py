@@ -24,7 +24,6 @@ class CarData(BaseModel):
         }
 
 
-
 class Car(BaseModel):
     brand: str
     year: Optional[int]

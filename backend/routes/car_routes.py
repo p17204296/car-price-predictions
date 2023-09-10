@@ -1,9 +1,9 @@
-import numpy as np
 import pandas as pd
 from fastapi import APIRouter, HTTPException
 
 from backend.ml_model.load_model import cars_csv
 from backend.ml_model.load_model import regrModel
+from backend.ml_model.load_model import newModel
 
 from backend.ml_model.load_model import encoder
 
@@ -41,7 +41,7 @@ async def predict_car_price(car_data: Car):
         print("Processed Features Content:", processed_features)
 
         # Make Prediction
-        predicted_price = regrModel.predict([processed_features])[0]
+        predicted_price = newModel.predict([processed_features])[0]
 
         return {"predicted_price": predicted_price}
 
@@ -105,3 +105,23 @@ def preprocess_data(car_data: Car):
     input_features.columns = input_features.columns.astype(str)
 
     return input_features
+
+
+@router.post("/predict/")
+async def predict_car_price(car_info: Car):
+
+    try:
+        # data for prediction
+        input_data = [[
+            car_info.year,
+            car_info.mileage
+        ]]
+
+        # Make Prediction
+        predicted_price = newModel.predict(input_data)[0]
+
+        return {"predicted_price_eur": predicted_price}
+    except Exception as e:
+        print(f"Error: {e}")
+        return HTTPException(status_code=500, detail="Internal server error")
+
