@@ -120,6 +120,8 @@ async def predict_car_price(car_info: Car):
         # Make Prediction
         predicted_price = newModel.predict(input_data)[0]
 
+        print(predicted_price)
+
         return {"predicted_price_eur": predicted_price}
     except Exception as e:
         print(f"Error: {e}")

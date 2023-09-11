@@ -24,7 +24,7 @@ class TestLoadModel(unittest.TestCase):
         self.assertTrue(cars_csv.endswith('.csv'))
 
     def test_load_newModel(self):
-        # Ensure that newModel is an instance of a loaded model (assuming it's a linear regression model)
+        # Ensure that newModel is an instance of a loaded model
         self.assertIsNotNone(newModel)  # Check if newModel is not None
 
 
