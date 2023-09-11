@@ -8,3 +8,9 @@ uvicorn[standard] == 0.23.2
 
 # Data validation & parsing package, it enforces type hints at runtime & provides user friendly errors for invalid data
 pydantic == 2.3.0
+
+scikit-learn == 1.3.0
+
+pandas == 2.1.0
+
+joblib == 1.3.2

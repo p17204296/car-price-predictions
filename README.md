@@ -19,6 +19,10 @@ This web application allows users to predict the price of a car based on various
 - **To Install python packages using the requirements.txt (see below)**
   -- Install txt file: `pip install -r requirements.txt`
   > This will download the packages using the requirements.txt file
+-  **To Install python packages via with pip compile (see below)**
+-- enter into command line : `pip install pip-tools`
+-- Enter: `Pip-compile`
+> This will download the packages using the requirements.in file
 
 **To Run Backend Server**
 Enter in terminal `python .\main.py`
