@@ -1,4 +1,3 @@
-// src/components/CarForm.tsx
 import React, { useState } from "react";
 import {
   StyledFormContainer,
@@ -9,27 +8,31 @@ import {
 } from "./CarFormStyles/CarFormStyles";
 
 interface CarFormProps {
+  // Define the props for the CarForm component
+  // 'onSubmit' is a callback function to handle form submission
+  // 'onError' is a callback function to handle errors
   onSubmit: (predictedPrice: string) => void; // Change the type to string
   onError: (error: string) => void;
 }
 
 const CarForm: React.FC<CarFormProps> = ({ onSubmit, onError }) => {
+  // Initialize state to store car data and error messages
   const [carData, setCarData] = useState({
-    brand: "",
-    year: 2020, // Set as a number
-    fuel: "",
-    gearbox: "",
-    mileage: 10000, // Set as a number
+    brand: "BMW",
+    year: 2020, // Year as a number
+    fuel: "Gasolina",
+    gearbox: "Manual",
+    mileage: 10000, // Mileage as a number
   });
 
   const [error, setError] = useState<string | null>(null);
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(carData);
+
     try {
       // Simulate an API request
-      // Replace this with your actual API call
       const response = await fetch("/api/predict", {
         method: "POST",
         headers: {
@@ -42,23 +45,26 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, onError }) => {
         throw new Error("Failed to fetch data");
       }
 
+      // Parse the response data
       const data = await response.json();
-      // Ensure data.predicted_price_eur is extracted as a string
+
+      // Extract the predicted price as a string
       const predictedPrice = data.predicted_price_eur.toString();
 
-      // If successful, call onSubmit with the extracted predicted price
+      // Call the 'onSubmit' callback with the predicted price
       onSubmit(predictedPrice);
 
       // Clear any previous errors
       setError(null);
     } catch (error) {
-      // Handle the error and call onError with the error message
+      // Handle any errors that occur during the API request
       setError((error as Error).message || "An error occurred.");
     }
   };
 
   return (
     <StyledFormContainer onSubmit={handleSubmit}>
+      {/* Form inputs */}
       <StyledLabel>Brand:</StyledLabel>
       <StyledInput
         type="text"
@@ -108,9 +114,10 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, onError }) => {
         required
       />
 
+      {/* Submit button */}
       <StyledButton type="submit">Predict Price</StyledButton>
 
-      {/* Display error message */}
+      {/* Display error message if there's an error */}
       {error && <StyledErrorText>{error}</StyledErrorText>}
     </StyledFormContainer>
   );
